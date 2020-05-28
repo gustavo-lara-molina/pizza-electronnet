@@ -1,3 +1,4 @@
+using ElectronNET.API;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,11 +29,11 @@ namespace BlazingPizza.Server
             services.AddDefaultIdentity<PizzaStoreUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<PizzaStoreContext>();
 
-            services.AddIdentityServer()
-                .AddApiAuthorization<PizzaStoreUser, PizzaStoreContext>();
+            //services.AddIdentityServer()
+            //    .AddApiAuthorization<PizzaStoreUser, PizzaStoreContext>();
 
-            services.AddAuthentication()
-                .AddIdentityServerJwt();
+            //services.AddAuthentication()
+            //    .AddIdentityServerJwt();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -56,9 +57,9 @@ namespace BlazingPizza.Server
 
             app.UseRouting();
 
-            app.UseAuthentication();
-            app.UseIdentityServer();
-            app.UseAuthorization();
+            //app.UseAuthentication();
+            //app.UseIdentityServer();
+            //app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
@@ -66,6 +67,8 @@ namespace BlazingPizza.Server
                 endpoints.MapRazorPages();
                 endpoints.MapFallbackToFile("index.html");
             });
+
+            Electron.WindowManager.CreateWindowAsync();
         }
     }
 }
